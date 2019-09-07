@@ -1,5 +1,7 @@
 # 函数式编程练习：函数式Comparator
 
+请完成[`Order`](https://github.com/hcsp/functional-comparator/blob/master/src/main/com/github/hcsp/functional/Order.java)中的挑战。
+
 祝你好运！
 
 -----
@@ -8,6 +10,6 @@
 -----
 
 
-完成题目有困难？不妨来看看[写代码啦的相应课程](https://xiedaimala.com/tasks/9bf0fb20-929d-4e17-891a-4673291d74a0)吧！
+完成题目有困难？不妨来看看[写代码啦的相应课程](https://xiedaimala.com/tasks/b7dcb38e-9a0a-4b94-8cc9-7f3dd14590fd)吧！
 
-回到[写代码啦的题目](https://xiedaimala.com/tasks/9bf0fb20-929d-4e17-891a-4673291d74a0/quizzes/1b0fc390-74ad-4f55-b355-90b8a9154cc5)，继续挑战！ 
+回到[写代码啦的题目](https://xiedaimala.com/tasks/b7dcb38e-9a0a-4b94-8cc9-7f3dd14590fd/quizzes/f778bfd7-89c7-47c7-ade7-6b5c87e11d0c)，继续挑战！ 
