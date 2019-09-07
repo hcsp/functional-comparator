@@ -1,6 +1,6 @@
 # 函数式编程练习：函数式Comparator
 
-请完成[`Order`](https://github.com/hcsp/functional-comparator/blob/master/src/main/com/github/hcsp/functional/Order.java)中的挑战。
+请完成[`Order`](https://github.com/hcsp/functional-comparator/blob/master/src/main/java/com/github/hcsp/functional/Order.java)中的挑战。
 
 祝你好运！
 
