@@ -63,7 +63,8 @@ public class Order {
         return orders.stream().collect(Collectors.toCollection(() -> new TreeSet<>(
                 Comparator.comparing(Order::isOpen)
                         .thenComparing(Order::getAmount).reversed()
-                        .thenComparing(Order::getOrderTime))));
+                        .thenComparing(Order::getOrderTime)
+                        .thenComparing(Order::getId))));
     }
 
     public static void main(String[] args) {
