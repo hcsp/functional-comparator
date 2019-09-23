@@ -3,8 +3,10 @@ package com.github.hcsp.functional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class Order {
     // 订单编号，全局唯一
@@ -53,22 +55,35 @@ public class Order {
                 + '}';
     }
 
-    // 请尝试编写一个方法，输入一个订单列表，输出一个TreeSet，TreeSet中订单的排序规则是：
+    // 请尝试编写一个方法，输入一个订单列表，输出一个TreeSet
+    // TreeSet中订单的排序规则是：
     // 1.首先按照是否关闭排序，未关闭的订单靠前；
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        return null;
+        TreeSet<Order> treeSet;
+        if (orders == null || orders.size() == 0) {
+            return new TreeSet<>();
+        }
+        treeSet = orders.stream().collect(Collectors.toCollection(() ->
+                new TreeSet<Order>(Comparator.comparing(Order::isOpen).
+                        thenComparing(Order::getAmount).reversed().
+                        thenComparing(Order::getOrderTime).
+                        thenComparing(Order::getId))));
+        return treeSet;
     }
 
     public static void main(String[] args) {
         Instant now = Instant.now();
-        System.out.println(
-                toTreeSet(
-                        Arrays.asList(
-                                new Order(1, now, false, new BigDecimal("1")),
-                                new Order(2, now.minusSeconds(1), true, new BigDecimal("2")),
-                                new Order(3, now.minusSeconds(-1), true, new BigDecimal("3")),
-                                new Order(4, now.minusSeconds(2), false, new BigDecimal("4")))));
+        TreeSet<Order> result = toTreeSet(
+                Arrays.asList(
+                        new Order(1, now, false, new BigDecimal("1")),
+                        new Order(2, now.minusSeconds(1), true, new BigDecimal("2")),
+                        new Order(3, now.minusSeconds(-1), true, new BigDecimal("3")),
+                        new Order(4, now.minusSeconds(2), false, new BigDecimal("4"))));
+        System.out.println("result.size(): " + result.size());
+        System.out.println(result);
     }
+
+
 }
