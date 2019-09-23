@@ -3,10 +3,12 @@ package com.github.hcsp.functional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
-public class Order implements Comparable<Order> {
+public class Order {
     // 订单编号，全局唯一
     private Integer id;
     // 下单时间
@@ -54,12 +56,20 @@ public class Order implements Comparable<Order> {
     }
 
     // 请尝试编写一个方法，输入一个订单列表，输出一个TreeSet
+    // TreeSet中订单的排序规则是：
+    // 1.首先按照是否关闭排序，未关闭的订单靠前；
+    // 2.然后按照订单金额排序，订单金额大的靠前；
+    // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        TreeSet<Order> treeSet = new TreeSet<>();
+        TreeSet<Order> treeSet;
         if (orders == null || orders.size() == 0) {
             return new TreeSet<>();
         }
-        treeSet.addAll(orders);
+        treeSet = orders.stream().collect(Collectors.toCollection(() ->
+                new TreeSet<Order>(Comparator.comparing(Order::isOpen).
+                        thenComparing(Order::getAmount).reversed().
+                        thenComparing(Order::getOrderTime).
+                        thenComparing(Order::getId))));
         return treeSet;
     }
 
@@ -75,24 +85,5 @@ public class Order implements Comparable<Order> {
         System.out.println(result);
     }
 
-    // TreeSet中订单的排序规则是：
-    // 1.首先按照是否关闭排序，未关闭的订单靠前；
-    // 2.然后按照订单金额排序，订单金额大的靠前；
-    // 3.然后按照下单时间排序，下单时间早的靠前
-    @Override
-    public int compareTo(Order order) {
-        if (open && !order.open) {
-            return -1;
-        }
-        if (!open && order.open) {
-            return 1;
-        }
-        if (!amount.equals(order.amount)) {
-            return -1 * amount.compareTo(order.amount);
-        }
-        if (!orderTime.equals(order.orderTime)) {
-            return orderTime.compareTo(order.orderTime);
-        }
-        return id.compareTo(order.id);
-    }
+
 }
