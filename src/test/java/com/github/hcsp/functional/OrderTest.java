@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +24,6 @@ public class OrderTest {
 
         Assertions.assertEquals(
                 Arrays.asList(4, 3, 2, 5, 6, 1),
-                orders.stream().map(Order::getId).collect(Collectors.toList())
-        );
+                orders.stream().map(Order::getId).collect(Collectors.toList()));
     }
 }
