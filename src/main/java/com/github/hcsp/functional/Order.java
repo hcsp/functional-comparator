@@ -3,7 +3,6 @@ package com.github.hcsp.functional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -54,21 +53,12 @@ public class Order {
                 + '}';
     }
 
-
     // 请尝试编写一个方法，输入一个订单列表，输出一个TreeSet，TreeSet中订单的排序规则是：
     // 1.首先按照是否关闭排序，未关闭的订单靠前；
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        TreeSet<Order> ts = new TreeSet<>(
-                Comparator.comparing(Order::isOpen)
-                        .thenComparing(Order::getAmount).reversed()
-                        .thenComparing(Order::getOrderTime)
-                        // 防止其他条件相同的Order会只剩一个
-                        .thenComparing(Order::getId)
-        );
-        ts.addAll(orders);
-        return ts;
+        return null;
     }
 
     public static void main(String[] args) {
