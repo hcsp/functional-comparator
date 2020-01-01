@@ -2,9 +2,7 @@ package com.github.hcsp.functional;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Order {
     // 订单编号，全局唯一
@@ -40,6 +38,20 @@ public class Order {
     }
 
     @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Order){
+            Order order = (Order) obj;
+            return Objects.equals( order.getId(), id );
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Order{"
                 + "id="
@@ -57,8 +69,16 @@ public class Order {
     // 1.首先按照是否关闭排序，未关闭的订单靠前；
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
-    public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        return null;
+    public static TreeSet<Order> toTreeSet(List<Order> orders){
+        Comparator comparator = Comparator.comparing((Order o) ->!o.isOpen())
+                .thenComparing(Order::getAmount, (a, b)->b.compareTo(a))
+                .thenComparing(Order::getOrderTime)
+                .thenComparing(Order::getId); //必须把id比较传递进去，否则相等时会被treeSet给过滤掉，元素个数会对不上
+
+        TreeSet<Order> orderTreeSet = new TreeSet<Order>(comparator);
+
+        orderTreeSet.addAll(orders);
+        return orderTreeSet;
     }
 
     public static void main(String[] args) {
