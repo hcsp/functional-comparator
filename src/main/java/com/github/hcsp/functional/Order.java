@@ -60,7 +60,7 @@ public class Order {
     // 1.首先按照是否关闭排序，未关闭的订单靠前；
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
-    //编号这个属性排在最后
+    //编号这个属性排在last
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
         TreeSet<Order> orderTreeSet = new TreeSet<>(
                 Comparator.comparing(Order::isOpen)
