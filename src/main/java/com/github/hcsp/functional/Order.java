@@ -1,10 +1,8 @@
 package com.github.hcsp.functional;
 
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -24,7 +22,6 @@ public class Order {
         this.open = open;
         this.amount = amount;
     }
-
 
     public Integer getId() {
         return id;
@@ -60,16 +57,8 @@ public class Order {
     // 1.首先按照是否关闭排序，未关闭的订单靠前；
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
-    //编号这个属性排在last
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        TreeSet<Order> orderTreeSet = new TreeSet<>(
-                Comparator.comparing(Order::isOpen)
-                        .thenComparing(Order::getAmount).reversed()
-                        .thenComparing(Order::getOrderTime)
-                        .thenComparing(Order::getId)
-        );
-        orderTreeSet.addAll(orders);
-        return orderTreeSet;
+        return null;
     }
 
     public static void main(String[] args) {
@@ -80,7 +69,6 @@ public class Order {
                                 new Order(1, now, false, new BigDecimal("1")),
                                 new Order(2, now.minusSeconds(1), true, new BigDecimal("2")),
                                 new Order(3, now.minusSeconds(-1), true, new BigDecimal("3")),
-                                new Order(4, now.minusSeconds(2), false, new BigDecimal("4"))))
-        );
+                                new Order(4, now.minusSeconds(2), false, new BigDecimal("4")))));
     }
 }
