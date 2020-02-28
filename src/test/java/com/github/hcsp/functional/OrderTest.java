@@ -21,7 +21,6 @@ public class OrderTest {
                                 new Order(4, now.minusSeconds(-1), true, new BigDecimal("3")),
                                 new Order(5, now.minusSeconds(2), false, new BigDecimal("4")),
                                 new Order(6, now.minusSeconds(2), false, new BigDecimal("4"))));
-        System.out.println(orders);
 
         Assertions.assertEquals(
                 Arrays.asList(4, 3, 2, 5, 6, 1),
