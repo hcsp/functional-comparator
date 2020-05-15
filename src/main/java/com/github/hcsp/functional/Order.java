@@ -63,6 +63,7 @@ public class Order {
                 Comparator.comparing(Order::isOpen).reversed()
                         .thenComparing(Comparator.comparing(Order::getAmount).reversed())
                         .thenComparing(Order::getOrderTime)
+                        .thenComparing(Order::getId)
         );
         result.addAll(orders);
         return result;
