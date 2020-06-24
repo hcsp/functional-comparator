@@ -2,9 +2,7 @@ package com.github.hcsp.functional;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Order {
     // 订单编号，全局唯一
@@ -58,7 +56,14 @@ public class Order {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        return null;
+        //TreeSet是基于TreeMap实现的，TreeSet的元素支持2种排序方式：自然排序或者根据提供的Comparator进行排序。
+        TreeSet<Order> ordersTreeSet = new TreeSet<>(Comparator.comparing(Order::isOpen)
+                .thenComparing(Order::getAmount).reversed()
+                .thenComparing(Order::getOrderTime)
+                .thenComparing(Order::getId)
+        );
+        ordersTreeSet.addAll(orders);
+        return ordersTreeSet;
     }
 
     public static void main(String[] args) {
