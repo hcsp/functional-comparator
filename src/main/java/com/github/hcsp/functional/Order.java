@@ -60,13 +60,19 @@ public class Order {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
+//        return orders.stream()
+//                .sorted(Comparator
+//                        .comparing(Order::isOpen)
+//                        .thenComparing(Order::getAmount).reversed()
+//                        .thenComparing(Order::getOrderTime)
+//                        .thenComparing(Order::getId))
+//                .collect(Collectors.toCollection(TreeSet::new));
         return orders.stream()
-                .sorted(Comparator
-                        .comparing(Order::isOpen)
-                        .thenComparing(Order::getAmount).reversed()
-                        .thenComparing(Order::getOrderTime)
-                        .thenComparing(Order::getId))
-                .collect(Collectors.toCollection(TreeSet::new));
+                .collect(Collectors.toCollection(() ->
+                        new TreeSet<>(Comparator.comparing(Order::isOpen)
+                                .thenComparing(Order::getAmount).reversed()
+                                .thenComparing(Order::getOrderTime)
+                                .thenComparing(Order::getId))));
     }
 
     public static void main(String[] args) {
