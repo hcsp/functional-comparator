@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
 
+
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.*;
+
 public class Order {
     // 订单编号，全局唯一
     private Integer id;
@@ -58,7 +62,12 @@ public class Order {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        return null;
+        return orders.stream()
+                .collect(toCollection(() ->
+                        new TreeSet<>(comparing(Order::isOpen)
+                                .thenComparing(Order::getAmount).reversed()
+                                .thenComparing(Order::getOrderTime)
+                                .thenComparing(Order::getId))));
     }
 
     public static void main(String[] args) {
