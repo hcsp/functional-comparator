@@ -71,9 +71,4 @@ public class Order {
                                 new Order(3, now.minusSeconds(-1), true, new BigDecimal("3")),
                                 new Order(4, now.minusSeconds(2), false, new BigDecimal("4")))));
     }
-
-//    @Override
-//    public int compareTo(Object o) {
-//        return 0;
-//    }
 }
