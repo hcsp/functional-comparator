@@ -60,8 +60,8 @@ public class Order {
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
         TreeSet<Order> result = new TreeSet<>(Comparator.comparing(Order::isOpen)
-                                                        .thenComparing(Order::getAmount).reversed()
-                                                        .thenComparing(Order::getOrderTime));
+                .thenComparing(Order::getAmount).reversed()
+                .thenComparing(Order::getOrderTime));
         result.addAll(orders);
         return result;
     }
