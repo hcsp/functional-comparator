@@ -61,7 +61,8 @@ public class Order {
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
         TreeSet<Order> result = new TreeSet<>(Comparator.comparing(Order::isOpen)
                 .thenComparing(Order::getAmount).reversed()
-                .thenComparing(Order::getOrderTime));
+                .thenComparing(Order::getOrderTime)
+                .thenComparing(Order::getId));
         result.addAll(orders);
         return result;
     }
