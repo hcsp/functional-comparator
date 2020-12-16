@@ -2,9 +2,9 @@ package com.github.hcsp.functional;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
+
+import static java.util.Comparator.comparing;
 
 public class Order {
     // 订单编号，全局唯一
@@ -42,15 +42,15 @@ public class Order {
     @Override
     public String toString() {
         return "Order{"
-                + "id="
-                + id
-                + ", orderTime="
-                + orderTime
-                + ", open="
-                + open
-                + ", amount="
-                + amount
-                + '}';
+                       + "id="
+                       + id
+                       + ", orderTime="
+                       + orderTime
+                       + ", open="
+                       + open
+                       + ", amount="
+                       + amount
+                       + '}';
     }
 
     // 请尝试编写一个方法，输入一个订单列表，输出一个TreeSet，TreeSet中订单的排序规则是：
@@ -58,7 +58,13 @@ public class Order {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        return null;
+        Comparator<Order> compareOrder = comparing(Order::isOpen).reversed()
+                                          .thenComparing(comparing(Order::getAmount).reversed())
+                                          .thenComparing(Order::getOrderTime)
+                                          .thenComparing(Order::getId);
+        TreeSet<Order> set = new TreeSet<>(compareOrder);
+        set.addAll(orders);
+        return set;
     }
 
     public static void main(String[] args) {
@@ -69,6 +75,24 @@ public class Order {
                                 new Order(1, now, false, new BigDecimal("1")),
                                 new Order(2, now.minusSeconds(1), true, new BigDecimal("2")),
                                 new Order(3, now.minusSeconds(-1), true, new BigDecimal("3")),
+                                new Order(11, now.minusSeconds(2), false, new BigDecimal("4")),
                                 new Order(4, now.minusSeconds(2), false, new BigDecimal("4")))));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Order order = (Order) o;
+        return id.equals(order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
