@@ -3,7 +3,6 @@ package com.github.hcsp.functional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -59,29 +58,17 @@ public class Order {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        Comparator<Order> compareOrders = Comparator.
-                comparing(Order::isOpen, Boolean::compareTo).
-                thenComparing(Order::getAmount, BigDecimal::compareTo).reversed().
-                thenComparing(Order::getOrderTime, Instant::compareTo).
-                thenComparing(Order::getId, Integer::compareTo);
-        TreeSet<Order> result = new TreeSet<>(compareOrders);
-        result.addAll(orders);
-        return result;
+        return null;
     }
 
     public static void main(String[] args) {
         Instant now = Instant.now();
-        TreeSet<Order> orderTreeSet =
+        System.out.println(
                 toTreeSet(
                         Arrays.asList(
-                                new Order(1, now, false, new BigDecimal("2")),
-                                new Order(2, now, true, new BigDecimal("1")),
-                                new Order(3, now.minusSeconds(1), true, new BigDecimal("1")),
-                                new Order(4, now.minusSeconds(-1), true, new BigDecimal("3")),
-                                new Order(5, now.minusSeconds(2), false, new BigDecimal("4")),
-                                new Order(6, now.minusSeconds(2), false, new BigDecimal("4"))));
-        for (Order order : orderTreeSet) {
-            System.out.println(order);
-        }
+                                new Order(1, now, false, new BigDecimal("1")),
+                                new Order(2, now.minusSeconds(1), true, new BigDecimal("2")),
+                                new Order(3, now.minusSeconds(-1), true, new BigDecimal("3")),
+                                new Order(4, now.minusSeconds(2), false, new BigDecimal("4")))));
     }
 }
