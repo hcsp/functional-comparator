@@ -4,7 +4,6 @@ package com.github.hcsp.functional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Order {
