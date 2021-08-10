@@ -1,7 +1,5 @@
 package com.github.hcsp.functional;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
