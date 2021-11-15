@@ -3,11 +3,10 @@ package com.github.hcsp.functional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
-public class Order implements Comparable<Order> {
+public class Order {
     // 订单编号，全局唯一
     private Integer id;
     // 下单时间
@@ -59,7 +58,7 @@ public class Order implements Comparable<Order> {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        return new TreeSet<>(orders);
+        return null;
     }
 
     public static void main(String[] args) {
@@ -71,19 +70,5 @@ public class Order implements Comparable<Order> {
                                 new Order(2, now.minusSeconds(1), true, new BigDecimal("2")),
                                 new Order(3, now.minusSeconds(-1), true, new BigDecimal("3")),
                                 new Order(4, now.minusSeconds(2), false, new BigDecimal("4")))));
-    }
-
-    @Override
-    public int compareTo(Order o) {
-        Comparator<Order> orderComparator = createOrderComparator();
-        int result = orderComparator.compare(this, o);
-        if (result == 0) {
-            return id - o.id;
-        }
-        return result;
-    }
-
-    private Comparator<Order> createOrderComparator() {
-        return Comparator.comparing(Order::isOpen).thenComparing(Order::getAmount).reversed().thenComparing(Order::getOrderTime);
     }
 }
