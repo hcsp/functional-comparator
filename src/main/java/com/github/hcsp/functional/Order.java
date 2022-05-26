@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
 
+import static java.util.Comparator.*;
+
 public class Order {
     // 订单编号，全局唯一
     private Integer id;
@@ -56,10 +58,14 @@ public class Order {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        Collections.sort(orders, Comparator.comparing(Order::isOpen)
-                .thenComparing(Comparator.comparing(Order::getAmount).reversed())
-                .thenComparing(Order::getOrderTime));
-        return (TreeSet<Order>) orders;
+        TreeSet<Order> orderTreeSet = new TreeSet<>(
+                comparing(Order::isOpen)
+                        .thenComparing(Order::getAmount).reversed()
+                        .thenComparing(Order::getOrderTime)
+                        .thenComparing(Order::getId)
+        );
+        orderTreeSet.addAll(orders);
+        return orderTreeSet;
     }
 
     public static void main(String[] args) {
