@@ -3,6 +3,7 @@ package com.github.hcsp.functional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -58,7 +59,13 @@ public class Order {
     // 2.然后按照订单金额排序，订单金额大的靠前；
     // 3.然后按照下单时间排序，下单时间早的靠前
     public static TreeSet<Order> toTreeSet(List<Order> orders) {
-        return null;
+        TreeSet<Order> orderTreeSet = new TreeSet<>(Comparator
+                .comparing(Order::isOpen)
+                .thenComparing(Order::getAmount).reversed()
+                .thenComparing(Order::getOrderTime)
+                .thenComparing(Order::getId));
+        orderTreeSet.addAll(orders);
+        return orderTreeSet;
     }
 
     public static void main(String[] args) {
